@@ -1,7 +1,7 @@
 import React from "react";
 
-const layout = () => {
-  return <div>layout</div>;
+const Layout = ({ children }) => {
+  return <div className="max-w-7xl m-auto w-full">{children}</div>;
 };
 
-export default layout;
+export default Layout;
