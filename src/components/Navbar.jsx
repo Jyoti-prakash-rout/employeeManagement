@@ -10,7 +10,7 @@ const Navbar = () => {
       <Layout>
         <div className="navbar bg-base-100 shadow-sm">
           <div className="navbar-start">
-            <a className="btn btn-ghost text-xl">daisyUI</a>
+            <a className="btn btn-ghost text-xl">Employeese</a>
           </div>
           <div className="navbar-end">
             <button className="btn btn-ghost btn-circle">
