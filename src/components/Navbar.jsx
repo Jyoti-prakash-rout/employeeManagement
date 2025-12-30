@@ -2,9 +2,13 @@ import React from "react";
 import Layout from "../layout/layout";
 
 import { Plus } from "lucide-react";
-import { retry } from "@reduxjs/toolkit/query";
+import { useDispatch } from "react-redux";
+import { openEmployeePopup } from "../store/features/popup/popupSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  console.log(dispatch);
+
   return (
     <div className="sticky top-0 z-10">
       <Layout>
@@ -13,7 +17,9 @@ const Navbar = () => {
             <a className="btn btn-ghost text-xl">Employeese</a>
           </div>
           <div className="navbar-end">
-            <button className="btn btn-ghost btn-circle">
+            <button
+              onClick={() => dispatch(openEmployeePopup())}
+              className="btn btn-ghost btn-circle">
               <Plus />
             </button>
             <button className="btn btn-ghost btn-circle">

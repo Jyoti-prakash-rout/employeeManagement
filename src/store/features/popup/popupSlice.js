@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react";
 
 const initialState = {
   employeePopup: false,
@@ -15,8 +16,20 @@ export const popupSlice = createSlice({
     closedEmployeePopup: (state, action) => {
       state.employeePopup = false;
     },
+    openDeletePopup: (state, action) => {
+      console.log(action.payload)
+      state.deletePopup = action.payload ?? true;
+    },
+    closedDeletePopup: (state, action) => {
+      state.deletePopup = false;
+    },
   },
 });
 
-export const { openEmployeePopup, closedEmployeePopup } = popupSlice.actions;
+export const {
+  openEmployeePopup,
+  closedEmployeePopup,
+  openDeletePopup,
+  closedDeletePopup,
+} = popupSlice.actions;
 export default popupSlice.reducer;

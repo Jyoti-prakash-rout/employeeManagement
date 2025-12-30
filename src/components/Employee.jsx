@@ -2,6 +2,11 @@ import React from "react";
 import Layout from "../layout/layout";
 
 import { Edit, Trash, Heart } from "lucide-react";
+import { useDispatch } from "react-redux";
+import {
+  openDeletePopup,
+  openEmployeePopup,
+} from "../store/features/popup/popupSlice";
 
 const Employee = () => {
   return (
@@ -24,6 +29,7 @@ const Employee = () => {
 };
 
 const EmployeeCard = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <li className="list-row">
@@ -44,10 +50,14 @@ const EmployeeCard = () => {
           relatable themes. The song’s success propelled Sabrino into the
           spotlight, solidifying their status as a rising star.
         </p>
-        <button className="btn btn-square btn-ghost">
+        <button
+          onClick={() => dispatch(openEmployeePopup())}
+          className="btn btn-square btn-ghost">
           <Edit />
         </button>
-        <button className="btn btn-square btn-ghost">
+        <button
+          onClick={() => dispatch(openDeletePopup())}
+          className="btn btn-square btn-ghost">
           <Trash />
         </button>
         <button className="btn btn-square btn-ghost">
