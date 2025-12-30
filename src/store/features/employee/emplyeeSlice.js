@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getEmployees } from "./employeeThunk";
+import { getEmployees, postEmployees } from "./employeeThunk";
 
 const initialState = {
   employees: [],
@@ -12,6 +12,7 @@ export const employeeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // Get employee
     builder.addCase(getEmployees.pending, (state, action) => {
       state.loading = true;
     });
@@ -20,6 +21,19 @@ export const employeeSlice = createSlice({
       state.employees = action.payload;
     });
     builder.addCase(getEmployees.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
+    // Post employee
+    builder.addCase(postEmployees.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(postEmployees.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(postEmployees.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });

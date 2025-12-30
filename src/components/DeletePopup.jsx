@@ -2,13 +2,20 @@ import React from "react";
 
 import { closedDeletePopup } from "../store/features/popup/popupSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteEmployees } from "../store/features/employee/employeeThunk";
 
 const DeletePopup = () => {
   const dispatch = useDispatch();
-  const popup = useSelector((state) => state.popup.deletePopup);
-  console.log(popup);
+  const { deletePopup, selectedEmployeeId } = useSelector(
+    (state) => state.popup
+  );
 
-  if (!popup) return null;
+  const handleDelete = async () => {
+    await dispatch(deleteEmployees(selectedEmployeeId));
+    dispatch(closedDeletePopup());
+  };
+
+  if (!deletePopup) return null;
   return (
     <div
       className="fixed top-0 left-0 w-full h-full z-20 flex items-center justify-center bg-black/80"
@@ -20,7 +27,9 @@ const DeletePopup = () => {
           <h2 className="card-title">Delete</h2>
           <p>Are you sure you want to delete this?</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-error">Yes</button>
+            <button onClick={handleDelete} className="btn btn-error">
+              Yes
+            </button>
             <button
               onClick={() => dispatch(closedDeletePopup())}
               className="btn btn-primary">

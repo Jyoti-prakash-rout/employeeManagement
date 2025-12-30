@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react";
 
 const initialState = {
   employeePopup: false,
   deletePopup: false,
+  selectedEmployeeId: null,
 };
 
 export const popupSlice = createSlice({
@@ -17,11 +17,12 @@ export const popupSlice = createSlice({
       state.employeePopup = false;
     },
     openDeletePopup: (state, action) => {
-      console.log(action.payload)
-      state.deletePopup = action.payload ?? true;
+      state.deletePopup = true;
+      state.selectedEmployeeId = action.payload;
     },
     closedDeletePopup: (state, action) => {
       state.deletePopup = false;
+      state.selectedEmployeeId = null;
     },
   },
 });

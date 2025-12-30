@@ -5,5 +5,6 @@ import popupSlice from "./features/popup/popupSlice";
 export const store = configureStore({
   reducer: {
     popup: popupSlice,
+    employee: employeeSlice,
   },
 });

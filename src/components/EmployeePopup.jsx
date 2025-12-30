@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { closedEmployeePopup } from "../store/features/popup/popupSlice";
+import { postEmployees } from "../store/features/employee/employeeThunk";
 
 const EmployeePopup = () => {
   const popup = useSelector((state) => state.popup.employeePopup);
 
   const dispatch = useDispatch();
+
+  const [formDetails, setFormDetails] = useState({
+    profileUrl: "",
+    name: "",
+    email: "",
+    bio: "",
+    highLight: false,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormDetails({
+      ...formDetails,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    await dispatch(postEmployees(formDetails));
+    dispatch(closedEmployeePopup());
+  };
 
   if (!popup) return null;
   return (
@@ -19,21 +41,49 @@ const EmployeePopup = () => {
         <legend className="fieldset-legend">Employee Details</legend>
 
         <label className="label">Profile URL</label>
-        <input type="text" className="input" placeholder="Profile URL" />
+        <input
+          type="text"
+          name="profileUrl"
+          value={formDetails.profileUrl}
+          onChange={handleInputChange}
+          className="input"
+          placeholder="Profile URL"
+        />
 
         <label className="label">Name</label>
-        <input type="text" className="input" placeholder="Name" />
+        <input
+          type="text"
+          name="name"
+          value={formDetails.name}
+          onChange={handleInputChange}
+          className="input"
+          placeholder="Name"
+        />
 
         <label className="label">Email</label>
-        <input type="email" className="input" placeholder="Email" />
+        <input
+          type="email"
+          name="email"
+          value={formDetails.email}
+          onChange={handleInputChange}
+          className="input"
+          placeholder="Email"
+        />
 
         <label className="label">Bio</label>
-        <textarea className="textarea" placeholder="Bio"></textarea>
+        <textarea
+          name="bio"
+          value={formDetails.bio}
+          onChange={handleInputChange}
+          className="textarea"
+          placeholder="Bio"></textarea>
 
-        <button className="btn btn-neutral mt-4">Add</button>
+        <button onClick={handleSubmit} className="btn btn-neutral mt-4">
+          Add
+        </button>
       </fieldset>
     </div>
   );
-}; 
+};
 
 export default EmployeePopup;

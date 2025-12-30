@@ -12,3 +12,29 @@ export const getEmployees = createAsyncThunk(
     }
   }
 );
+
+export const postEmployees = createAsyncThunk(
+  "employee/postEmployees",
+  async (details, { rejectWithValue, dispatch }) => {
+    try {
+      const res = await api.post("employee", details);
+      dispatch(getEmployees());
+      return res.data;
+    } catch (error) {
+      return rejectWithValue("Something went wrong😐");
+    }
+  }
+);
+
+export const deleteEmployees = createAsyncThunk(
+  "employee/deleteEmployees",
+  async (id, { rejectWithValue, dispatch }) => {
+    try {
+      const res = await api.delete(`employee/${id}`);
+      dispatch(getEmployees());
+      return res.data;
+    } catch (error) {
+      return rejectWithValue("Something went wrong😐");
+    }
+  }
+);
